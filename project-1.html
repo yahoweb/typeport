@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project_001 : Sketches In Scale - Gyuho Yoon</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+    <nav class="appbar">
+        <div class="appbar-left">
+            <a href="main.html" class="logo-link">YOON</a>
+        </div>
+        <div class="appbar-right">
+            <a href="main.html#work" class="nav-link">WORK</a>
+            <a href="about.html" class="nav-link">ABOUT ME</a>
+            <a href="contact.html" class="nav-link">CONTACT</a>
+        </div>
+    </nav>
+    
+    <div class="project-container">
+        <div class="project-header">
+            <a href="main.html#work" class="back-link">← Back to Work</a>
+            <h1 class="project-name">Project_001 : Sketches In Scale</h1>
+            <div class="project-description">
+                <p>For this project, I recorded the meditation music I listen to each morning and translated the layered sounds I notice while meditating into simple, intuitive visuals. By emptying myself through the act of meditation, I was able to catch subtle sound details and express them through clear, minimal forms.</p>
+            </div>
+        </div>
+        
+        <div class="section-tabs">
+            <button class="tab-button active" data-tab="progress">Progress</button>
+            <button class="tab-button" data-tab="final">Final</button>
+            <button class="tab-button" data-tab="audio">Audio</button>
+        </div>
+        
+        <!-- Progress Section -->
+        <div class="section-content active" id="progress">
+            <div class="gallery-grid">
+                <div class="gallery-item" data-image="assets/P1/001-01.png">
+                    <img src="assets/P1/001-01.png" alt="Progress 01">
+                </div>
+                <div class="gallery-item" data-image="assets/P1/001-02.png">
+                    <img src="assets/P1/001-02.png" alt="Progress 02">
+                </div>
+                <div class="gallery-item" data-image="assets/P1/001-03.png">
+                    <img src="assets/P1/001-03.png" alt="Progress 03">
+                </div>
+                <div class="gallery-item" data-image="assets/P1/001-04.png">
+                    <img src="assets/P1/001-04.png" alt="Progress 04">
+                </div>
+                <div class="gallery-item" data-image="assets/P1/001-05.png">
+                    <img src="assets/P1/001-05.png" alt="Progress 05">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Final Section -->
+        <div class="section-content" id="final">
+            <div class="final-gallery-grid">
+                <div class="final-gallery-item" data-image="assets/P1/01.png">
+                    <img src="assets/P1/01.png" alt="Final 01">
+                </div>
+                <div class="final-gallery-item" data-image="assets/P1/02.png">
+                    <img src="assets/P1/02.png" alt="Final 02">
+                </div>
+                <div class="final-gallery-item" data-image="assets/P1/03.png">
+                    <img src="assets/P1/03.png" alt="Final 03">
+                </div>
+                <div class="final-gallery-item" data-image="assets/P1/04.png">
+                    <img src="assets/P1/04.png" alt="Final 04">
+                </div>
+                <div class="final-gallery-item final-item-05" data-image="assets/P1/05.png">
+                    <img src="assets/P1/05.png" alt="Final 05" class="img-05">
+                </div>
+                <div class="final-gallery-item" data-image="assets/P1/06.png">
+                    <img src="assets/P1/06.png" alt="Final 06">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Audio Section -->
+        <div class="section-content" id="audio">
+            <div class="audio-container">
+                <div class="audio-player-wrapper">
+                    <div class="audio-title">Sound</div>
+                    <audio controls class="audio-player">
+                        <source src="assets/P1/sound.m4a" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <button class="modal-nav prev" id="prevImage">‹</button>
+            <button class="modal-nav next" id="nextImage">›</button>
+        </div>
+    </div>
+    
+    <script>
+        // Tab switching
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const sectionContents = document.querySelectorAll('.section-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.getAttribute('data-tab');
+                
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                sectionContents.forEach(section => section.classList.remove('active'));
+                
+                button.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+        
+        // Image Modal
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.querySelector('.modal-close');
+        const prevBtn = document.getElementById('prevImage');
+        const nextBtn = document.getElementById('nextImage');
+        
+        let currentImages = [];
+        let currentIndex = 0;
+        
+        function openModal(images, index) {
+            currentImages = images;
+            currentIndex = index;
+            modalImage.src = currentImages[currentIndex];
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            updateNavButtons();
+        }
+        
+        function closeModalFunc() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        function updateNavButtons() {
+            prevBtn.style.display = currentImages.length > 1 ? 'flex' : 'none';
+            nextBtn.style.display = currentImages.length > 1 ? 'flex' : 'none';
+        }
+        
+        function showPrevImage() {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = currentImages.length - 1;
+            }
+            modalImage.src = currentImages[currentIndex];
+        }
+        
+        function showNextImage() {
+            if (currentIndex < currentImages.length - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            modalImage.src = currentImages[currentIndex];
+        }
+        
+        // Progress gallery
+        const progressItems = document.querySelectorAll('#progress .gallery-item');
+        const progressImages = Array.from(progressItems).map(item => item.getAttribute('data-image'));
+        
+        progressItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                openModal(progressImages, index);
+            });
+        });
+        
+        // Final gallery
+        const finalItems = document.querySelectorAll('#final .final-gallery-item');
+        const finalImagesList = Array.from(finalItems).map(item => item.getAttribute('data-image'));
+        
+        finalItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                openModal(finalImagesList, index);
+            });
+        });
+        
+        // Modal controls
+        closeModal.addEventListener('click', closeModalFunc);
+        prevBtn.addEventListener('click', showPrevImage);
+        nextBtn.addEventListener('click', showNextImage);
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModalFunc();
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === 'flex') {
+                if (e.key === 'Escape') {
+                    closeModalFunc();
+                } else if (e.key === 'ArrowLeft') {
+                    showPrevImage();
+                } else if (e.key === 'ArrowRight') {
+                    showNextImage();
+                }
+            }
+        });
+        
+        // Auto crop white space from images
+        function cropWhiteSpace(img) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            img.onload = function() {
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                ctx.drawImage(img, 0, 0);
+                
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                
+                let top = 0;
+                let bottom = canvas.height;
+                let left = 0;
+                let right = canvas.width;
+                
+                // Find top
+                scan: for (let y = 0; y < canvas.height; y++) {
+                    for (let x = 0; x < canvas.width; x++) {
+                        const idx = (y * canvas.width + x) * 4;
+                        const r = data[idx];
+                        const g = data[idx + 1];
+                        const b = data[idx + 2];
+                        // Check if pixel is white (threshold for white detection)
+                        if (r < 250 || g < 250 || b < 250) {
+                            top = y;
+                            break scan;
+                        }
+                    }
+                }
+                
+                // Find bottom
+                scan: for (let y = canvas.height - 1; y >= 0; y--) {
+                    for (let x = 0; x < canvas.width; x++) {
+                        const idx = (y * canvas.width + x) * 4;
+                        const r = data[idx];
+                        const g = data[idx + 1];
+                        const b = data[idx + 2];
+                        if (r < 250 || g < 250 || b < 250) {
+                            bottom = y + 1;
+                            break scan;
+                        }
+                    }
+                }
+                
+                // Find left
+                scan: for (let x = 0; x < canvas.width; x++) {
+                    for (let y = 0; y < canvas.height; y++) {
+                        const idx = (y * canvas.width + x) * 4;
+                        const r = data[idx];
+                        const g = data[idx + 1];
+                        const b = data[idx + 2];
+                        if (r < 250 || g < 250 || b < 250) {
+                            left = x;
+                            break scan;
+                        }
+                    }
+                }
+                
+                // Find right
+                scan: for (let x = canvas.width - 1; x >= 0; x--) {
+                    for (let y = 0; y < canvas.height; y++) {
+                        const idx = (y * canvas.width + x) * 4;
+                        const r = data[idx];
+                        const g = data[idx + 1];
+                        const b = data[idx + 2];
+                        if (r < 250 || g < 250 || b < 250) {
+                            right = x + 1;
+                            break scan;
+                        }
+                    }
+                }
+                
+                // Apply crop using clip-path
+                const width = right - left;
+                const height = bottom - top;
+                const clipLeft = (left / canvas.width) * 100;
+                const clipRight = ((canvas.width - right) / canvas.width) * 100;
+                const clipTop = (top / canvas.height) * 100;
+                const clipBottom = ((canvas.height - bottom) / canvas.height) * 100;
+                
+                img.style.clipPath = `inset(${clipTop}% ${clipRight}% ${clipBottom}% ${clipLeft}%)`;
+                img.style.objectPosition = `${-clipLeft}% ${-clipTop}%`;
+            };
+        }
+        
+        // Apply white space cropping only to 05.png
+        const img05 = document.querySelector('.img-05');
+        if (img05) {
+            if (img05.complete) {
+                cropWhiteSpace(img05);
+            } else {
+                img05.addEventListener('load', () => cropWhiteSpace(img05));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #ffffff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.landing-container {
+    text-align: center;
+}
+
+.landing-text {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 120px;
+    font-weight: 300;
+    letter-spacing: -2px;
+    color: #000000;
+    transition: opacity 0.3s ease;
+}
+
+.landing-text:hover {
+    opacity: 0.6;
+}
+

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyuho Yoon - Portfolio</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <nav class="appbar">
+        <div class="appbar-left">
+            <a href="main.html" class="logo-link">Yooniverse</a>
+        </div>
+        <div class="appbar-right">
+            <a href="main.html#work" class="nav-link">WORK</a>
+            <a href="about.html" class="nav-link">ABOUT ME</a>
+            <a href="contact.html" class="nav-link">CONTACT</a>
+        </div>
+    </nav>
+    
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-name">Yooniverse Design</h1>
+            <p class="hero-type">Type_3</p>
+            
+            <div class="about-content">
+                <p class="about-text">
+                    Where personal perspective meets design for people <br>
+                    in branding, web, and creative visual systems.
+
+                </p>
+                <div class="about-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value">gyoon@risd.edu</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Design</span>
+                        <span class="detail-value">Web Design, Type Design, Graphic Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
+    
+    <div class="projects-container" id="work">
+        <h2 class="projects-heading">Projects</h2>
+        <div class="projects-grid">
+            <a href="project-1.html" class="project-card" data-index="1">
+                <div class="project-image">
+                    <div class="project-text">Project 1</div>
+                </div>
+                <div class="project-info">
+                    <h2 class="project-title">Project_001 : Sketches In Scale</h2>
+                    <p class="project-category">Project</p>
+                </div>
+            </a>
+            
+            <a href="project-2.html" class="project-card" data-index="2">
+                <div class="project-image">
+                    <div class="project-text">Project 2</div>
+                </div>
+                <div class="project-info">
+                    <h2 class="project-title">Project_002 : Hybrid Publication</h2>
+                    <p class="project-category">Project</p>
+                </div>
+            </a>
+            
+            <a href="project-3.html" class="project-card" data-index="3">
+                <div class="project-image">
+                    <div class="project-text">Project 3</div>
+                </div>
+                <div class="project-info">
+                    <h2 class="project-title">Project_003 : Type In The Translation Air</h2>
+                    <p class="project-category">Project</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.project-card').forEach(card => {
+            observer.observe(card);
+        });
+        
+        // 스크롤 인디케이터 클릭 시 프로젝트 섹션으로 스크롤
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        const projectsContainer = document.querySelector('.projects-container');
+        
+        if (scrollIndicator && projectsContainer) {
+            scrollIndicator.addEventListener('click', function() {
+                projectsContainer.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+
